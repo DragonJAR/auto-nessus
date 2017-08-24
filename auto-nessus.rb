@@ -15,21 +15,21 @@ case ARGV[0]
     login
   when "list_policies"
     # policies name
-    listPolicies("policies","name")
+    listPolicies("policies","name", "std")
   when "list_folders"
-    listPolicies("folders","name")
+    listPolicies("folders","name", "std")
   when "list_scanners"
-    listPolicies("scanners","name")
+    listPolicies("scanners","name", "std")
   when "list_scans"
-    listPolicies("scans","name")
+    listPolicies("scans","name", "std")
   when "list_users"
-    listPolicies("users","username")
+    listPolicies("users","username", "std")
   when "create_scan"
     lines = Array.new
     ip = File.readlines('ip.txt').each { |line| lines << line }
-    binding.pry
-    puts a
+    #binding.pry
+    #puts a
+    create_scan(ARGV[1])
   else
     puts "Opcion no valida"
   end
-#2ebb01f45bfa7ef9ccf309196352a7c073809b7cb06195e7\

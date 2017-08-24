@@ -53,7 +53,7 @@ def login
   puts token.code
 end
 
-def listPolicies(feature,name)
+def listPolicies(feature,name, mode)
   body = ""
   list = nessus_server_get(feature)
   #binding.pry
@@ -66,31 +66,49 @@ def listPolicies(feature,name)
       @rows = []
       t["#{feature}"].each.with_index(1) { | a,  index | @rows << [index, a["id"], a["#{name}"] ]  }
       table = Terminal::Table.new :headings => ['N', 'ID', 'NOMBRE'], :rows => @rows
-      puts table
+      puts table if mode != "sil"
     else
       @rows = []
       t["#{feature}"].each.with_index(1) { | a,  index | @rows << [index, a["#{name}"] ] }
       table = Terminal::Table.new :headings => ['N',  'NOMBRE'], :rows => @rows
-      puts table
+      puts table if mode != "sil"
     end
     #puts JSON.pretty_generate(t["templates"]["title"])
+    return t
   end
 end
 
-def post()
-  JSON.dump({
-    "uuid": {template_uuid},
-    "settings": {
-        "name": {string},
-        "description": {string},
-        "emails": {string},
-        "enabled": "true",
-        "launch": {string},
-        "folder_id": {integer},
-        "policy_id": {integer},
-        "scanner_id": {integer},
-        "text_targets": {string}
+def create_scan(name)
+
+  r = listPolicies("policies","name", "sil")
+  #binding.pry
+  r["policies"].each do | h |
+    if h["name"] == name
+      @uuid = h["template_uuid"]
+
+    else
+      puts "Ingresa el nombre de la Politica"
+      exit
+    end
+  end
+  body = JSON.dump({
+    "uuid" =>  @uuid ,
+    "settings" => {
+      "name" =>  "string",
+      "description" =>  "string",
+      "emails" =>  "string",
+      "enabled" => "true",
+      "launch" =>  "string",
+      "folder_id" =>  "integer",
+      "policy_id" =>  "integer",
+      "scanner_id" =>  "integer",
+      "text_targets" =>  "string"
     }
-})
+  })
+  puts body
+
+  #r = nessus_server_post("/scans", body, "" )
+  #t = JSON.parse(r.body)
+  #puts r.body
 
 end
