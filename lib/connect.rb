@@ -90,7 +90,7 @@ def create_scan(name, name_s, file)
     end
   end
   if @uuid == ""
-    puts "No encontre la Politica #{name} "
+    puts "I did not find the policy #{name} "
     exit
   end
 #  puts body
@@ -116,7 +116,7 @@ def create_scan(name, name_s, file)
     #binding.pry
     out = %x[curl -s -k -X POST -H \"#{h1}\" -H \"#{h2}\" -d \'#{body}\' #{c_url}]
     out = JSON.parse(out)
-    puts "Creado: #{out["scan"]["name"]}  n_targets: #{out["scan"]["custom_targets"].split(",").size}"
+    puts "Created: #{out["scan"]["name"]}  n_targets: #{out["scan"]["custom_targets"].split(",").size}"
     #binding.pry
   end
 end

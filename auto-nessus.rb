@@ -28,18 +28,18 @@ case ARGV[0]
   when "create_scans"
     #binding.pry
     if ARGV[1].nil?
-      puts "Ingresa nombre de la POLITICA"
-      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE> "
+      puts "Enter name of the POLICY"
+      puts "[exp:~$] ruby auto-nessus.rb create_scans <NAME-POLICIES> <NAME-SCAN> <FILE> "
       exit
     end
     if ARGV[2].nil?
-      puts "Ingresa nombre de la SCAN"
-      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE>"
+      puts "Enter name of the SCAN"
+      puts "[exp:~$] ruby auto-nessus.rb create_scans <NAME-POLICIES> <NAME-SCAN> <FILE>"
       exit
     end
     if ARGV[3].nil?
-      puts "Ingresa nombre del ARCHIVO IP"
-      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE>"
+      puts "Enter name of the IP-FILE"
+      puts "[exp:~$] ruby auto-nessus.rb create_scans <NAME-POLICIES> <NAME-SCAN> <FILE>"
       exit
     end
     create_scan(ARGV[1],ARGV[2], ARGV[3])
