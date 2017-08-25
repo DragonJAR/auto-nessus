@@ -19,6 +19,10 @@ Clone and install dependencies
 
 # Note: require native command curl
 
+## Config
+  1.  `cp config.json.example config.json`
+  2.  Edit and add : host, username, password.
+  3.  `ruby auto-nessus.rb login`
 
 ## Usage
 

@@ -35,5 +35,10 @@ Ex: ruby auto-nessus.rb <ARG>
   HELP:
     help			: show help
 
-  ABOUT:
-    visit: https://github.com/luisra51/auto-nessus
+CONFIG:
+  1.  cp config.json.example config.json
+  2.  Edit and add : host, username, password.
+  3.  ruby auto-nessus.rb login
+
+ABOUT:
+  visit: https://github.com/luisra51/auto-nessus
