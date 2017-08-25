@@ -1,10 +1,10 @@
 {
   "nessus-server":
     {
-      "host": "wwwwwwwww",
+      "host": "xxx.xxx.xxx.xxx:8834",
       "username": "wwwwwwwww",
       "password": "wwwwwwwww",
-      "password": "wwwwwwwww"
+      "token": "wwwwwwwww"
 
     }
 }
