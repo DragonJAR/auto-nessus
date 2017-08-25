@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'net/http'
 require 'uri'
 require 'json'
@@ -24,12 +25,26 @@ case ARGV[0]
     listPolicies("scans","name", "std")
   when "list_users"
     listPolicies("users","username", "std")
-  when "create_scan"
-    lines = Array.new
-    ip = File.readlines('ip.txt').each { |line| lines << line }
+  when "create_scans"
     #binding.pry
-    #puts a
-    create_scan(ARGV[1])
+    if ARGV[1].nil?
+      puts "Ingresa nombre de la POLITICA"
+      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE> "
+      exit
+    end
+    if ARGV[2].nil?
+      puts "Ingresa nombre de la SCAN"
+      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE>"
+      exit
+    end
+    if ARGV[3].nil?
+      puts "Ingresa nombre del ARCHIVO IP"
+      puts "[exp:~$] ruby auto-nessus.rb create_scan <NAME-POLICIES> <NAME-SCAN> <FILE>"
+      exit
+    end
+    create_scan(ARGV[1],ARGV[2], ARGV[3])
   else
-    puts "Opcion no valida"
+    help = File.read("help.txt")
+    #puts "Opcion no valida"
+    puts help
   end

@@ -78,37 +78,45 @@ def listPolicies(feature,name, mode)
   end
 end
 
-def create_scan(name)
-
+def create_scan(name, name_s, file)
   r = listPolicies("policies","name", "sil")
-  #binding.pry
+  @uuid=""
   r["policies"].each do | h |
+    #binding.pry
     if h["name"] == name
       @uuid = h["template_uuid"]
-
-    else
-      puts "Ingresa el nombre de la Politica"
-      exit
+      @id = h["id"]
+      #binding.pry
     end
   end
-  body = JSON.dump({
-    "uuid" =>  @uuid ,
-    "settings" => {
-      "name" =>  "string",
-      "description" =>  "string",
-      "emails" =>  "string",
-      "enabled" => "true",
-      "launch" =>  "string",
-      "folder_id" =>  "integer",
-      "policy_id" =>  "integer",
-      "scanner_id" =>  "integer",
-      "text_targets" =>  "string"
-    }
-  })
-  puts body
-
-  #r = nessus_server_post("/scans", body, "" )
-  #t = JSON.parse(r.body)
-  #puts r.body
-
+  if @uuid == ""
+    puts "No encontre la Politica #{name} "
+    exit
+  end
+#  puts body
+  h1 = "X-Cookie: token=#{@n_config['nessus-server']['token']}"
+  h2 = "Content-Type: application/json"
+  c_url = "https://#{@n_config['nessus-server']['host']}/scans"
+  #binding.pry
+  lines = Array.new
+  ip = File.readlines("#{file}").each { |line| lines << line }
+  block = ip.each_slice(16).to_a
+  block.each.with_index(1) do | ips, index |
+    targets = ips.join.gsub("\n",", ")
+    body = JSON.dump({
+      "uuid" =>  "#{@uuid}",
+      "settings" => {
+        "name" =>  "#{index}-#{name_s}",
+        "policy_id": "#{@id}",
+        "enabled" => "true",
+        "text_targets" =>  "#{targets.chomp(', ')}"
+      }
+    })
+    #puts targets
+    #binding.pry
+    out = %x[curl -s -k -X POST -H \"#{h1}\" -H \"#{h2}\" -d \'#{body}\' #{c_url}]
+    out = JSON.parse(out)
+    puts "Creado: #{out["scan"]["name"]}  n_targets: #{out["scan"]["custom_targets"].split(",").size}"
+    #binding.pry
+  end
 end

@@ -1,0 +1,39 @@
+
+
+  __ _ _   _| |_ ___        _ __   ___  ___ ___ _   _ ___
+ / _` | | | | __/ _ \ _____| '_ \ / _ \/ __/ __| | | / __|
+| (_| | |_| | || (_) |_____| | | |  __/\__ \__ \ |_| \__ \
+ \__,_|\__,_|\__\___/      |_| |_|\___||___/___/\__,_|___/
+
+
+Usage:
+
+Ex: ruby auto-nessus.rb <ARG>
+  AUTH: is REQUIRED before all command
+    login		: Create session on nessus system
+      IMPORTANT NOTE: is REQUIRED before all commands
+
+Ex: ruby auto-nessus.rb <ARG>
+  LIST INFO:
+    list_policies 	 : show all policies created in nessus
+    list_scans 		   : show all scans created in nessus
+    list_users 		   : show all users created in nessus
+    list_scanners		 : show all scanners created in nessus
+    list_folders     : show all folders created in nessus
+
+Ex: ruby auto-nessus.rb <ARG> <OPTIONS>
+  CREATE:
+    create_scans <NAME-POLICIES> <NAME-SCAN> <FILE> 	: Creates scanners from an ip address file
+        NOTE: Ex file:
+          10.10.10.10
+          11.11.11.11
+          12.12.12.12
+          ...........
+          ...........
+
+Ex: ruby auto-nessus.rb <ARG>
+  HELP:
+    help			: show help
+
+  ABOUT:
+    visit: https://github.com/luisra51/auto-nessus
